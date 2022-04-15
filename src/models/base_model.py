@@ -3,9 +3,6 @@ import abc
 
 class BaseModel(abc.ABC):
     def __init__(self, input_shape, nb_classes):
-        self.callbacks = []
-        self.batch_size = 16
-        self.nb_epochs = 3
         self.model = self.build_model(input_shape, nb_classes)
 
     @abc.abstractmethod
