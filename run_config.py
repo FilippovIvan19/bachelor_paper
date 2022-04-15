@@ -14,6 +14,8 @@ MODELS_TO_RUN = [
     Models.CNN,
     Models.ENCODER,
     Models.FCN,
+    Models.RESNET,
+    Models.INCEPTION,
 ]
 
 PRINT_METRICS = True
