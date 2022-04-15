@@ -5,7 +5,7 @@ import warnings; warnings.simplefilter(action='ignore', category=FutureWarning)
 import pandas as pd
 from typing import Type
 
-from src.utils import reformat_data, print_metrics
+from src.utils import reformat_data, print_metrics, save_metrics_to_xlsx
 from src.classifiers import get_classifier_class, BaseClassifier
 from src.constants import ARCHIVES_DIR_SUFFIX, HISTORY_DIR_SUFFIX, RESULTS_DIR_SUFFIX, COLUMN_NAMES
 from src.constants import check_archive_contains_dataset
@@ -22,15 +22,13 @@ stored_metrics_dfs = dict()
 if os.path.exists(xlsx_file_name):
     stored_metrics_dfs = pd.read_excel(xlsx_file_name, sheet_name=None)
 
-
 for archives in DATASETS_TO_RUN.items():
     cur_archive = archives[0]
     cur_datasets = archives[1]
     for dataset_name in cur_datasets:
-        csv_file_name = current_dir + RESULTS_DIR_SUFFIX + dataset_name + '.csv'
         dataset_metrics = dict()
-        if os.path.exists(csv_file_name):
-            dataset_metrics = pd.read_csv(csv_file_name).set_index(COLUMN_NAMES[0]).T.to_dict('list')
+        if dataset_name in stored_metrics_dfs:
+            dataset_metrics = stored_metrics_dfs[dataset_name].set_index(COLUMN_NAMES[0]).T.to_dict('list')
 
         adapter: Type[BaseAdapter] = get_adapter(cur_archive)
         train_test_data = adapter.read_train_test_data(current_dir + ARCHIVES_DIR_SUFFIX, dataset_name)
@@ -50,16 +48,9 @@ for archives in DATASETS_TO_RUN.items():
             if PRINT_METRICS:
                 print_metrics(dataset_name, model.value, dataset_metrics[model.value])
 
-        dataset_metrics_df = pd.DataFrame.from_dict(dataset_metrics, orient='index').reset_index()
-        dataset_metrics_df.to_csv(csv_file_name, index=False, header=COLUMN_NAMES)
-        stored_metrics_dfs[dataset_name] = dataset_metrics_df
+        stored_metrics_dfs[dataset_name] = pd.DataFrame.from_dict(dataset_metrics, orient='index').reset_index()
 
-writer = pd.ExcelWriter(xlsx_file_name)
-
-for ds_name, df in stored_metrics_dfs.items():
-    df.to_excel(writer, sheet_name=ds_name, index=False, header=COLUMN_NAMES)
-
-writer.save()
+save_metrics_to_xlsx(xlsx_file_name, stored_metrics_dfs)
 
 full_duration = time.time() - full_start_time
 print('full duration = {:.2f} minutes'.format(full_duration/60))
