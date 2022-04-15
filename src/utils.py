@@ -8,23 +8,15 @@ import matplotlib.pyplot as plt
 import matplotlib
 from sklearn.preprocessing import OneHotEncoder
 
+from src.constants import COLUMN_NAMES, PRINT_METRICS_STRING
+
 matplotlib.use('agg')
 
-PRINT_METRICS_STRING = '''\
-        precision = {:.4f}
-        accuracy  = {:.4f}
-        recall    = {:.4f}
-        train duration = {:.2f} minutes
-'''
 
-
-def calculate_metrics(y_true, y_pred, duration):
-    # res = pd.DataFrame(data=np.zeros((1, 4), dtype=np.float), index=[0],
-    #                    columns=['precision', 'accuracy', 'recall', 'duration'])
+def calculate_metrics(y_true, y_pred):
     precision = precision_score(y_true, y_pred, average='macro', zero_division=0)
     accuracy = accuracy_score(y_true, y_pred)
     recall = recall_score(y_true, y_pred, average='macro', zero_division=0)
-    # res['duration'] = duration
     return precision, accuracy, recall
 
 
@@ -62,3 +54,10 @@ def reformat_data(train_test_data):
 def print_metrics(dataset_name, model_name, metrics):
     print('    dataset {} was processed by {} model with following metrics:'.format(dataset_name, model_name))
     print(PRINT_METRICS_STRING.format(*metrics))
+
+
+def save_metrics_to_xlsx(xlsx_file_name, stored_metrics_dfs):
+    writer = pd.ExcelWriter(xlsx_file_name)
+    for ds_name, df in stored_metrics_dfs.items():
+        df.to_excel(writer, sheet_name=ds_name, index=False, header=COLUMN_NAMES)
+    writer.save()

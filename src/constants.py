@@ -9,6 +9,13 @@ FINALIZING_DIR_SUFFIX = 'DONE/'
 
 COLUMN_NAMES = ['model', 'precision', 'accuracy', 'recall', 'duration (minutes)']
 
+PRINT_METRICS_STRING = '''\
+        precision = {:.4f}
+        accuracy  = {:.4f}
+        recall    = {:.4f}
+        train duration = {:.2f} minutes
+'''
+
 
 class Archives(Enum):
     UCR_2018 = 'UCRArchive_2018'

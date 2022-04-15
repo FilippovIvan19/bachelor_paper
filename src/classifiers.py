@@ -3,15 +3,12 @@ import os
 import shutil
 import time
 from typing import Type
-
-import numpy as np
 import pandas as pd
 from tensorflow import keras
 
 from src.models.base_model import BaseModel
 from src.models.model_mapping import get_model_class, Models
 from src.utils import calculate_metrics, draw_history_graph
-from sklearn.preprocessing import OneHotEncoder
 
 
 class BaseClassifier(abc.ABC):
@@ -21,17 +18,6 @@ class BaseClassifier(abc.ABC):
 
         self.x_train, self.y_train, self.x_test, self.y_test, self.y_test_labeled, self.encoder, \
             input_shape, nb_classes = data
-
-        # self.x_train, self.y_train, self.x_test, self.y_test = train_test_data
-        # input_shape = self.x_train.shape[1:]
-        # nb_classes = len(np.unique(np.concatenate((self.y_train, self.y_test), axis=0)))
-        #
-        # # transform the labels from integers to one hot vectors
-        # self.encoder = OneHotEncoder(categories='auto')
-        # self.encoder.fit(np.concatenate((self.y_train, self.y_test), axis=0).reshape(-1, 1))
-        # self.y_test_labeled = self.y_test.copy()
-        # self.y_train = self.encoder.transform(self.y_train.reshape(-1, 1)).toarray()
-        # self.y_test = self.encoder.transform(self.y_test.reshape(-1, 1)).toarray()
 
         model_class: [BaseModel] = get_model_class(model)
         self.model = model_class(input_shape, nb_classes)
@@ -45,11 +31,6 @@ class BaseClassifier(abc.ABC):
         train_start_time = time.time()
         history = self.fit()
         train_duration = time.time() - train_start_time
-
-        # y_predicted_m = self.model.predict(self.x_test)
-        # y_predicted_m_labeled = self.encoder.inverse_transform(y_predicted_m)
-
-        # self.model.model.save(self.model_path)
 
         y_predicted = self.predict(self.x_test)
         y_predicted_labeled = self.encoder.inverse_transform(y_predicted)
@@ -65,11 +46,8 @@ class BaseClassifier(abc.ABC):
             if os.path.exists(self.model_path):
                 os.remove(self.model_path)
 
-        precision, accuracy, recall = calculate_metrics(self.y_test_labeled, y_predicted_labeled, train_duration)
-        # metrics_m = calculate_metrics(self.y_test_labeled, y_predicted_m_labeled, train_duration)
-        # print(metrics)
+        precision, accuracy, recall = calculate_metrics(self.y_test_labeled, y_predicted_labeled)
         return [precision, accuracy, recall, train_duration/60]
-        # print(metrics_m)
 
     @abc.abstractmethod
     def fit(self):

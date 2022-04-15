@@ -30,16 +30,5 @@ class Model_MLP(BaseModel):
                       metrics=[keras.metrics.Recall()])
         return model
 
-    # def fit(self, x_train, y_train, x_test, y_test):
-    #     self.batch_size = int(min(x_train.shape[0] / 10, self.batch_size))
-    #
-    #     history = self.model.fit(x_train, y_train,
-    #                              batch_size=self.batch_size, epochs=self.nb_epochs,
-    #                              validation_data=(x_test, y_test), verbose=0)
-    #     return history
-
-    # def fit(self, x_train, y_train, x_test, y_test):
-    #     pass
-
     def prepare(self, x_train, y_train, x_test, y_test):
         self.batch_size = int(min(x_train.shape[0] / 10, self.batch_size))
