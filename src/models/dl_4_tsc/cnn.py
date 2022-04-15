@@ -1,9 +1,9 @@
 from tensorflow import keras
+
 from src.models.base_model import BaseModel
 
 
 class Model_CNN(BaseModel):
-
     def build_model(self, input_shape, nb_classes):
         self.batch_size = 16
         self.nb_epochs = 100

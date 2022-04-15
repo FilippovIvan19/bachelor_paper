@@ -63,12 +63,12 @@ class Classifier_DL4TSC(BaseClassifier):
 
     def fit(self):
         model_checkpoint = keras.callbacks.ModelCheckpoint(
-            filepath=self.model_path, monitor='recall', save_best_only=True
+            filepath=self.model_path, save_best_only=True
         )
 
         history = self.model.model.fit(
             self.x_train, self.y_train, batch_size=self.model.batch_size, epochs=self.model.nb_epochs,
-            validation_data=(self.x_test, self.y_test), callbacks=[model_checkpoint], verbose=0
+            validation_data=(self.x_test, self.y_test), callbacks=[model_checkpoint] + self.model.callbacks, verbose=0
         )
 
         keras.backend.clear_session()

@@ -5,13 +5,15 @@ from src.models.model_mapping import Models
 DATASETS_TO_RUN = {}
 DATASETS_TO_RUN[Archives.UCR_2018] = [
     'Coffee',
-    'Car',
+    # 'Car',
     # 'CinCECGTorso'
 ]
 
 MODELS_TO_RUN = [
-    # Models.MLP,
+    Models.MLP,
     Models.CNN,
+    Models.ENCODER,
+    Models.FCN,
 ]
 
 PRINT_METRICS = True

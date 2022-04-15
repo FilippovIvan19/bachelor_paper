@@ -8,6 +8,7 @@ class Model_MLP(BaseModel):
         self.batch_size = 16
         self.nb_epochs = 100
         # self.nb_epochs = 5000
+
         input_layer = keras.layers.Input(input_shape)
 
         # flatten/reshape because when multivariate all should be on the same axis
