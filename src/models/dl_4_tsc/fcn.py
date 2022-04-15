@@ -7,14 +7,17 @@ from src.models.base_model import BaseModel
 
 
 class Model_FCN(BaseModel):
-    def build_model(self, input_shape, nb_classes):
-        self.batch_size = 16
-        self.nb_epochs = 10
-        # self.nb_epochs = 2000
-
+    def __init__(self, input_shape, nb_classes):
         reduce_lr = keras.callbacks.ReduceLROnPlateau(monitor='loss', factor=0.5, patience=50, min_lr=0.0001)
         self.callbacks = [reduce_lr]
 
+        self.batch_size = 16
+        # self.nb_epochs = 2000
+        self.nb_epochs = 10
+
+        super().__init__(input_shape, nb_classes)
+
+    def build_model(self, input_shape, nb_classes):
         input_layer = keras.layers.Input(input_shape)
 
         conv1 = keras.layers.Conv1D(filters=128, kernel_size=8, padding='same')(input_layer)

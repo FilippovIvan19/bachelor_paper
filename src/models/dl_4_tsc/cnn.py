@@ -4,11 +4,15 @@ from src.models.base_model import BaseModel
 
 
 class Model_CNN(BaseModel):
-    def build_model(self, input_shape, nb_classes):
+    def __init__(self, input_shape, nb_classes):
+        self.callbacks = []
         self.batch_size = 16
-        self.nb_epochs = 100
         # self.nb_epochs = 2000
+        self.nb_epochs = 100
 
+        super().__init__(input_shape, nb_classes)
+
+    def build_model(self, input_shape, nb_classes):
         padding = 'valid'
         input_layer = keras.layers.Input(input_shape)
 

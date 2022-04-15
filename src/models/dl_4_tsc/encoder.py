@@ -6,11 +6,15 @@ from src.models.base_model import BaseModel
 
 
 class Model_ENCODER(BaseModel):
-    def build_model(self, input_shape, nb_classes):
+    def __init__(self, input_shape, nb_classes):
+        self.callbacks = []
         self.batch_size = 12
         # self.nb_epochs = 100
         self.nb_epochs = 10
 
+        super().__init__(input_shape, nb_classes)
+
+    def build_model(self, input_shape, nb_classes):
         input_layer = keras.layers.Input(input_shape)
 
         # conv block -1
