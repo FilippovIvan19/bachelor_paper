@@ -45,3 +45,4 @@ class Model_FCN(BaseModel):
 
     def prepare(self, x_train, y_train, x_test, y_test):
         self.batch_size = int(min(x_train.shape[0] / 10, self.batch_size))
+        return x_train, y_train, x_test, y_test

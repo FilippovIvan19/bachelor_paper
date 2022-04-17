@@ -7,6 +7,7 @@ import pandas as pd
 from tensorflow import keras
 
 from src.models.base_model import BaseModel
+from src.models.dl_4_tsc import Model_TLENET
 from src.models.model_mapping import get_model_class, Models
 from src.utils import calculate_metrics, draw_history_graph
 
@@ -27,7 +28,8 @@ class BaseClassifier(abc.ABC):
             shutil.rmtree(self.history_dir)
         os.makedirs(self.history_dir)
 
-        self.model.prepare(self.x_train, self.y_train, self.x_test, self.y_test)
+        self.x_train, self.y_train, self.x_test, self.y_test = \
+            self.model.prepare(self.x_train, self.y_train, self.x_test, self.y_test)
         train_start_time = time.time()
         history = self.fit()
         train_duration = time.time() - train_start_time
@@ -75,6 +77,11 @@ class Classifier_DL4TSC(BaseClassifier):
         return history
 
     def predict(self, x):
+        if isinstance(self.model, Model_TLENET):
+            y_predicted = self.model.tlenet_predict(x, self.model_path)
+            y_predicted = self.encoder.categories_[0][y_predicted.astype(int)]
+            return self.encoder.transform(y_predicted.reshape(-1, 1)).toarray()
+
         model = keras.models.load_model(self.model_path)
         return model.predict(x)
 

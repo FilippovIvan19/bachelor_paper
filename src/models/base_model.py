@@ -13,7 +13,7 @@ class BaseModel(abc.ABC):
         return
 
     def prepare(self, x_train, y_train, x_test, y_test):
-        pass
+        return x_train, y_train, x_test, y_test
 
     def predict(self, x):
         return self.model.predict(x)

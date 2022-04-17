@@ -4,3 +4,5 @@ from .encoder import Model_ENCODER
 from .fcn import Model_FCN
 from .resnet import Model_RESNET
 from .inception import Model_INCEPTION
+from .mcdcnn import Model_MCDCNN
+from .tlenet import Model_TLENET
