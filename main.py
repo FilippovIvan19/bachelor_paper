@@ -31,7 +31,8 @@ for archives in DATASETS_TO_RUN.items():
             dataset_metrics = stored_metrics_dfs[dataset_name].set_index(COLUMN_NAMES[0]).T.to_dict('list')
 
         adapter: Type[BaseAdapter] = get_adapter(cur_archive)
-        train_test_data = adapter.read_train_test_data(current_dir + ARCHIVES_DIR_SUFFIX, dataset_name)
+        train_test_data = adapter.read_train_test_data(
+            current_dir + ARCHIVES_DIR_SUFFIX + cur_archive.value, dataset_name)
         if PRINT_READING:
             print('dataset {} from archive {} was read'.format(dataset_name, cur_archive.value))
         data = reformat_data(train_test_data)

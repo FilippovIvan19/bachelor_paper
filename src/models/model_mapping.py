@@ -1,6 +1,6 @@
 from enum import Enum
 
-from src.models import dl_4_tsc
+from src.models import dl_4_tsc, LSTMs
 from src.models.base_model import BaseModel
 
 
@@ -15,6 +15,7 @@ class Models(Enum):
     MCDCNN = 'mcdcnn'
     CNN = 'cnn'
     INCEPTION = 'inception'
+    LSTMS = 'lstms'
 
 
 model_names_to_models = {
@@ -28,6 +29,7 @@ model_names_to_models = {
     Models.MCDCNN: dl_4_tsc.Model_MCDCNN,
     Models.CNN: dl_4_tsc.Model_CNN,
     Models.INCEPTION: dl_4_tsc.Model_INCEPTION,
+    Models.LSTMS: LSTMs.Model_LSTMS,
 }
 
 

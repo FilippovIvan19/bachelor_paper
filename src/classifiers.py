@@ -59,7 +59,7 @@ class BaseClassifier(abc.ABC):
         return self.model.predict(x)
 
 
-class Classifier_DL4TSC(BaseClassifier):
+class ClassifierKeras(BaseClassifier):
     def __init__(self, train_test_data, model: Models, history_dir):
         super().__init__(train_test_data, model, history_dir, 'best_model.hdf5')
 
@@ -87,9 +87,10 @@ class Classifier_DL4TSC(BaseClassifier):
 
 
 classifier_to_model_names = {
-    Classifier_DL4TSC: [
+    ClassifierKeras: [
         Models.FCN, Models.MLP, Models.RESNET, Models.TLENET, Models.MCNN,
-        Models.TWIESN, Models.ENCODER, Models.MCDCNN, Models.CNN, Models.INCEPTION
+        Models.TWIESN, Models.ENCODER, Models.MCDCNN, Models.CNN, Models.INCEPTION,
+        Models.LSTMS
     ]
 }
 

@@ -4,10 +4,16 @@ from src.models.model_mapping import Models
 
 DATASETS_TO_RUN = {}
 DATASETS_TO_RUN[Archives.UCR_2018] = [
-    'Coffee',
-    # 'Car',
-    # 'CinCECGTorso'
+    # 'CinCECGTorso',
+    # 'ECG200',
+    # 'ECG5000',
+    # 'ECGFiveDays',
+    # 'NonInvasiveFetalECGThorax1',
+    # 'NonInvasiveFetalECGThorax2',
+    # 'TwoLeadECG',
 ]
+# DATASETS_TO_RUN[Archives.PTB] = ['ptb-diagnostic-ecg-database-1.0.0']
+DATASETS_TO_RUN[Archives.UEA_2018] = ['AtrialFibrillation', 'StandWalkJump']
 
 MODELS_TO_RUN = [
     Models.MLP,
@@ -18,6 +24,7 @@ MODELS_TO_RUN = [
     Models.INCEPTION,
     Models.TLENET,
     Models.MCDCNN,
+    # Models.LSTMS,
 ]
 
 PRINT_METRICS = True

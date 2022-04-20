@@ -39,7 +39,7 @@ def plot_epochs_metric(hist, file_name, metric='loss'):
 
 def reformat_data(train_test_data):
     x_train, y_train, x_test, y_test = train_test_data
-    input_shape = x_train.shape[1:]
+    input_shape = x_train[0].shape
     nb_classes = len(np.unique(np.concatenate((y_train, y_test), axis=0)))
 
     encoder = OneHotEncoder(categories='auto')

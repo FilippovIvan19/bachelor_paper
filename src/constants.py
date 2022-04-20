@@ -1,9 +1,9 @@
 from enum import Enum
 
 
-RESULTS_DIR_SUFFIX = '../../results/'
-ARCHIVES_DIR_SUFFIX = '../../archives/'
-HISTORY_DIR_SUFFIX = '../../history/'
+RESULTS_DIR_SUFFIX = '/../results/'
+ARCHIVES_DIR_SUFFIX = '/../archives/'
+HISTORY_DIR_SUFFIX = '/../history/'
 FINALIZING_DIR_SUFFIX = 'DONE/'
 
 
@@ -18,7 +18,9 @@ PRINT_METRICS_STRING = '''\
 
 
 class Archives(Enum):
-    UCR_2018 = 'UCRArchive_2018'
+    UCR_2018 = 'UCRArchive_2018'        # univariate
+    UEA_2018 = 'Multivariate2018_ts'    # multivariate
+    PTB = 'ptb'
 
 
 DATASETS = {}
@@ -53,6 +55,8 @@ DATASETS[Archives.UCR_2018] = ['ACSF1', 'Adiac', 'AllGestureWiimoteX', 'AllGestu
                                'TwoLeadECG', 'TwoPatterns', 'UMD', 'UWaveGestureLibraryAll',
                                'UWaveGestureLibraryX', 'UWaveGestureLibraryY', 'UWaveGestureLibraryZ',
                                'Wafer', 'Wine', 'WordSynonyms', 'Worms', 'WormsTwoClass', 'Yoga']
+DATASETS[Archives.UEA_2018] = ['AtrialFibrillation', 'StandWalkJump']
+DATASETS[Archives.PTB] = ['ptb-diagnostic-ecg-database-1.0.0']
 
 
 def check_archive_contains_dataset(datasets):
