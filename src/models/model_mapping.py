@@ -1,6 +1,6 @@
 from enum import Enum
 
-from src.models import dl_4_tsc, LSTMs
+from src.models import dl_4_tsc, LSTMs, lxdv
 from src.models.base_model import BaseModel
 
 
@@ -16,6 +16,10 @@ class Models(Enum):
     CNN = 'cnn'
     INCEPTION = 'inception'
     LSTMS = 'lstms'
+    EcgResNet34 = 'EcgResNet34'
+    ZolotyhNet = 'ZolotyhNet'
+    HeartNet1D = 'HeartNet1D'
+    HeartNet2D = 'HeartNet2D'
 
 
 model_names_to_models = {
@@ -30,6 +34,10 @@ model_names_to_models = {
     Models.CNN: dl_4_tsc.Model_CNN,
     Models.INCEPTION: dl_4_tsc.Model_INCEPTION,
     Models.LSTMS: LSTMs.Model_LSTMS,
+    Models.EcgResNet34: lxdv.Model_EcgResNet34,
+    Models.ZolotyhNet: lxdv.Model_ZolotyhNet,
+    Models.HeartNet1D: lxdv.Model_HeartNet1D,
+    Models.HeartNet2D: lxdv.Model_HeartNet2D,
 }
 
 

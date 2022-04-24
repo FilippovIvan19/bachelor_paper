@@ -4,10 +4,15 @@ import shutil
 import time
 from typing import Type
 import pandas as pd
+import torch
+from pytorch_lightning import Trainer
 from tensorflow import keras
+from torch.utils.data import DataLoader, TensorDataset
+from pytorch_lightning.callbacks import ModelCheckpoint
 
 from src.models.base_model import BaseModel
 from src.models.dl_4_tsc import Model_TLENET
+from src.models.lit_model import LitModule
 from src.models.model_mapping import get_model_class, Models
 from src.utils import calculate_metrics, draw_history_graph
 
@@ -86,11 +91,42 @@ class ClassifierKeras(BaseClassifier):
         return model.predict(x)
 
 
+class ClassifierTorch(BaseClassifier):
+    def __init__(self, train_test_data, model: Models, history_dir):
+        self.best_model_file_name = 'best_model'
+        super().__init__(train_test_data, model, history_dir, self.best_model_file_name + '.ckpt')
+        self.y_test_labeled = self.y_test_labeled
+
+    def fit(self):
+        train_dataset = TensorDataset(torch.from_numpy(self.x_train).float(), torch.from_numpy(self.y_train).float())
+        test_dataset = TensorDataset(torch.from_numpy(self.x_test).float(), torch.from_numpy(self.y_test).float())
+        train_dataloader = DataLoader(train_dataset, batch_size=self.model.batch_size, num_workers=0)
+        test_dataloader = DataLoader(test_dataset, batch_size=self.model.batch_size, num_workers=0)
+
+        checkpoint_callback = ModelCheckpoint(
+            dirpath=self.history_dir, filename=self.best_model_file_name, monitor='val_loss')
+        trainer = Trainer(callbacks=[checkpoint_callback], max_epochs=self.model.nb_epochs,
+                          enable_progress_bar=False, enable_model_summary=False)
+
+        trainer.fit(self.model.model, train_dataloader, test_dataloader)
+        return self.model.model.history
+
+    def predict(self, x):
+        model = LitModule.load_from_checkpoint(self.model_path,
+                                               model=self.model.model.model, optimizer=self.model.model.optimizer)
+        x_tensor = torch.from_numpy(x).float()
+        y_pred_tensor = model.forward(x_tensor)
+        return y_pred_tensor.detach().numpy()
+
+
 classifier_to_model_names = {
     ClassifierKeras: [
         Models.FCN, Models.MLP, Models.RESNET, Models.TLENET, Models.MCNN,
         Models.TWIESN, Models.ENCODER, Models.MCDCNN, Models.CNN, Models.INCEPTION,
         Models.LSTMS
+    ],
+    ClassifierTorch: [
+        Models.EcgResNet34, Models.ZolotyhNet, Models.HeartNet1D, Models.HeartNet2D,
     ]
 }
 
