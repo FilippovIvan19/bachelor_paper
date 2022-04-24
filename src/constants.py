@@ -4,7 +4,6 @@ from enum import Enum
 RESULTS_DIR_SUFFIX = '/../results/'
 ARCHIVES_DIR_SUFFIX = '/../archives/'
 HISTORY_DIR_SUFFIX = '/../history/'
-FINALIZING_DIR_SUFFIX = 'DONE/'
 
 
 COLUMN_NAMES = ['model', 'precision', 'accuracy', 'recall', 'duration (minutes)']

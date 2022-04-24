@@ -9,7 +9,6 @@ from tensorflow import keras
 from src.models.base_model import BaseModel
 
 
-# not tested
 class Model_LSTMS(BaseModel):
     def __init__(self, input_shape, nb_classes):
         self.callbacks = []

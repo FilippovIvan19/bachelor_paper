@@ -38,7 +38,7 @@ class BaseClassifier(abc.ABC):
         y_predicted_labeled = self.encoder.inverse_transform(y_predicted)
 
         if save_history:
-            hist_df = pd.DataFrame(history.history)
+            hist_df = pd.DataFrame(history)
             hist_df.to_csv(self.history_dir + 'history.csv')
 
         if draw_graph:
@@ -74,12 +74,12 @@ class ClassifierKeras(BaseClassifier):
         )
 
         keras.backend.clear_session()
-        return history
+        return history.history
 
     def predict(self, x):
         if isinstance(self.model, Model_TLENET):
             y_predicted = self.model.tlenet_predict(x, self.model_path)
-            y_predicted = self.encoder.categories_[0][y_predicted.astype(int)]
+            y_predicted = self.encoder.categories_[0][y_predicted.astype(int)]  # int?
             return self.encoder.transform(y_predicted.reshape(-1, 1)).toarray()
 
         model = keras.models.load_model(self.model_path)

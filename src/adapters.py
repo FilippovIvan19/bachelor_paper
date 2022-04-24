@@ -16,6 +16,7 @@ class BaseAdapter(abc.ABC):
         return np.array(0), np.array(0), np.array(0), np.array(0)
 
 
+# doesn't work
 class TSCAdapter(BaseAdapter):
     @staticmethod
     def read_x_y_data(file_path: str) -> (np.array, np.array):

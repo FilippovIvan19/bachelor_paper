@@ -1,6 +1,15 @@
 import time; full_start_time = time.time()
-import os; os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
-import warnings; warnings.simplefilter(action='ignore', category=FutureWarning)
+import os
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
+
+import warnings
+warnings.filterwarnings("ignore", ".*does not have many workers.*")
+warnings.filterwarnings("ignore", ".*pandas.Int64Index is deprecated.*")
+warnings.filterwarnings("ignore", ".*Set a lower value for log_every_n_steps if you want to see logs.*")
+warnings.filterwarnings("ignore", ".*order of the arguments: ceil_mode and return_indices.*")
+
+import pytorch_lightning
+import logging; logging.getLogger('pytorch_lightning').setLevel(logging.WARNING)
 
 import pandas as pd
 from typing import Type
@@ -35,7 +44,7 @@ for archives in DATASETS_TO_RUN.items():
             current_dir + ARCHIVES_DIR_SUFFIX + cur_archive.value, dataset_name)
         if PRINT_READING:
             print('dataset {} from archive {} was read'.format(dataset_name, cur_archive.value))
-        data = reformat_data(train_test_data)
+        data = reformat_data(train_test_data, SHORT_DATA)
 
         for model in MODELS_TO_RUN:
             classifier_class: Type[BaseClassifier] = get_classifier_class(model)

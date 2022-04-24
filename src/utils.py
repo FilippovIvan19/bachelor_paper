@@ -27,8 +27,8 @@ def draw_history_graph(hist, history_dir):
 
 def plot_epochs_metric(hist, file_name, metric='loss'):
     plt.figure()
-    plt.plot(hist.history[metric])
-    plt.plot(hist.history['val_' + metric])
+    plt.plot(hist[metric])
+    plt.plot(hist['val_' + metric])
     plt.title('model ' + metric)
     plt.ylabel(metric, fontsize='large')
     plt.xlabel('epoch', fontsize='large')
@@ -37,7 +37,7 @@ def plot_epochs_metric(hist, file_name, metric='loss'):
     plt.close()
 
 
-def reformat_data(train_test_data):
+def reformat_data(train_test_data, short=False):
     x_train, y_train, x_test, y_test = train_test_data
     input_shape = x_train[0].shape
     nb_classes = len(np.unique(np.concatenate((y_train, y_test), axis=0)))
@@ -48,7 +48,10 @@ def reformat_data(train_test_data):
     y_train = encoder.transform(y_train.reshape(-1, 1)).toarray()
     y_test = encoder.transform(y_test.reshape(-1, 1)).toarray()
 
-    return x_train, y_train, x_test, y_test, y_test_labeled, encoder, input_shape, nb_classes
+    if short:
+        return x_train[:16], y_train[:16], x_test[:4], y_test[:4], y_test_labeled[:4], encoder, input_shape, nb_classes
+    else:
+        return x_train, y_train, x_test, y_test, y_test_labeled, encoder, input_shape, nb_classes
 
 
 def print_metrics(dataset_name, model_name, metrics):
