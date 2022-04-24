@@ -37,7 +37,8 @@ class LitModule(pl.LightningModule):
         y_hat = self.model(x)
         loss = F.cross_entropy(y_hat, y)
         precision, accuracy, recall = calculate_metrics(torch.argmax(y_hat, dim=1), torch.argmax(y, dim=1))
-        metrics = {"loss": loss, "precision": precision, "accuracy": accuracy, "recall": recall}
+        # metrics = {"loss": loss, "precision": precision, "accuracy": accuracy, "recall": recall}
+        metrics = {"loss": loss, "recall": recall}
         return metrics
 
     def make_epoch_metrics(self, step_outputs):
@@ -55,14 +56,14 @@ class LitModule(pl.LightningModule):
 
     def training_epoch_end(self, training_step_outputs):
         self.make_epoch_metrics(training_step_outputs)
-        self.history["epoch"] = self.history.get("epoch", []) + [self.trainer.current_epoch]
+        # self.history["epoch"] = self.history.get("epoch", []) + [self.trainer.current_epoch]
 
     def validation_epoch_end(self, validation_step_outputs):
         self.make_epoch_metrics(validation_step_outputs)
 
     def on_train_end(self):
         for k, v in self.history.items():
-            if "val_" in k and len(v) > len(self.history.get("epoch", [])):
+            if "val_" in k and len(v) > len(self.history.get(k[4:], [])):
                 self.history[k] = self.history[k][1:]
 
     def configure_optimizers(self):

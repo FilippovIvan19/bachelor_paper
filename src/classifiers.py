@@ -10,6 +10,7 @@ from tensorflow import keras
 from torch.utils.data import DataLoader, TensorDataset
 from pytorch_lightning.callbacks import ModelCheckpoint
 
+from src.constants import HISTORY_COLUMN_NAMES
 from src.models.base_model import BaseModel
 from src.models.dl_4_tsc import Model_TLENET
 from src.models.lit_model import LitModule
@@ -43,7 +44,7 @@ class BaseClassifier(abc.ABC):
         y_predicted_labeled = self.encoder.inverse_transform(y_predicted)
 
         if save_history:
-            hist_df = pd.DataFrame(history)
+            hist_df = pd.DataFrame(history, columns=HISTORY_COLUMN_NAMES)
             hist_df.to_csv(self.history_dir + 'history.csv')
 
         if draw_graph:

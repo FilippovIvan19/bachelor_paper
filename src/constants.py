@@ -7,6 +7,7 @@ HISTORY_DIR_SUFFIX = '/../history/'
 
 
 COLUMN_NAMES = ['model', 'precision', 'accuracy', 'recall', 'duration (minutes)']
+HISTORY_COLUMN_NAMES = ['loss', 'recall', 'val_loss', 'val_recall']
 
 PRINT_METRICS_STRING = '''\
         precision = {:.4f}
