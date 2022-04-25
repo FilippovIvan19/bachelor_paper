@@ -8,26 +8,26 @@ class Model_CNN(BaseModel):
         self.callbacks = []
         self.batch_size = 16
         # self.nb_epochs = 2000
-        self.nb_epochs = 100
+        self.nb_epochs = 2
 
         super().__init__(input_shape, nb_classes)
 
     def build_model(self, input_shape, nb_classes):
         padding = 'valid'
-        input_layer = keras.layers.Input(input_shape)
+        input_layer = keras.layers.Input(input_shape[::-1])
 
-        if input_shape[0] < 60: # for italypowerondemand dataset
+        if input_shape[1] < 60:  # for italypowerondemand dataset
             padding = 'same'
 
-        conv1 = keras.layers.Conv1D(filters=6,kernel_size=7,padding=padding,activation='sigmoid')(input_layer)
+        conv1 = keras.layers.Conv1D(filters=6, kernel_size=7, padding=padding, activation='sigmoid')(input_layer)
         conv1 = keras.layers.AveragePooling1D(pool_size=3)(conv1)
 
-        conv2 = keras.layers.Conv1D(filters=12,kernel_size=7,padding=padding,activation='sigmoid')(conv1)
+        conv2 = keras.layers.Conv1D(filters=12, kernel_size=7, padding=padding, activation='sigmoid')(conv1)
         conv2 = keras.layers.AveragePooling1D(pool_size=3)(conv2)
 
         flatten_layer = keras.layers.Flatten()(conv2)
 
-        output_layer = keras.layers.Dense(units=nb_classes,activation='sigmoid')(flatten_layer)
+        output_layer = keras.layers.Dense(units=nb_classes, activation='sigmoid')(flatten_layer)
 
         model = keras.models.Model(inputs=input_layer, outputs=output_layer)
 
@@ -35,3 +35,6 @@ class Model_CNN(BaseModel):
                       metrics=[keras.metrics.Recall()])
 
         return model
+
+    def prepare(self, x_train, y_train, x_test, y_test):
+        return x_train.swapaxes(1, 2), y_train, x_test.swapaxes(1, 2), y_test

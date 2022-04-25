@@ -16,13 +16,10 @@ class Model_EcgResNet34(BaseModel):
         super().__init__(input_shape, nb_classes)
 
     def build_model(self, input_shape, nb_classes):
-        inner_model = EcgResNet34(input_shape, num_classes=nb_classes)
+        inner_model = EcgResNet34(input_shape[::-1], num_classes=nb_classes)
         optimizer = torch.optim.Adam(inner_model.parameters(), lr=1e-3)
         model = LitModule(inner_model, optimizer)
         return model
-
-    def prepare(self, x_train, y_train, x_test, y_test):
-        return x_train.swapaxes(1, 2), y_train, x_test.swapaxes(1, 2), y_test
 
 
 class Model_ZolotyhNet(BaseModel):
@@ -34,13 +31,10 @@ class Model_ZolotyhNet(BaseModel):
         super().__init__(input_shape, nb_classes)
 
     def build_model(self, input_shape, nb_classes):
-        inner_model = ZolotyhNet(input_shape, num_classes=nb_classes)
+        inner_model = ZolotyhNet(input_shape[::-1], num_classes=nb_classes)
         optimizer = torch.optim.Adam(inner_model.parameters(), lr=1e-3)
         model = LitModule(inner_model, optimizer)
         return model
-
-    def prepare(self, x_train, y_train, x_test, y_test):
-        return x_train.swapaxes(1, 2), y_train, x_test.swapaxes(1, 2), y_test
 
 
 class Model_HeartNet1D(BaseModel):
@@ -52,13 +46,10 @@ class Model_HeartNet1D(BaseModel):
         super().__init__(input_shape, nb_classes)
 
     def build_model(self, input_shape, nb_classes):
-        inner_model = HeartNet1D(input_shape, num_classes=nb_classes)
+        inner_model = HeartNet1D(input_shape[::-1], num_classes=nb_classes)
         optimizer = torch.optim.Adam(inner_model.parameters(), lr=1e-3)
         model = LitModule(inner_model, optimizer)
         return model
-
-    def prepare(self, x_train, y_train, x_test, y_test):
-        return x_train.swapaxes(1, 2), y_train, x_test.swapaxes(1, 2), y_test
 
 
 class Model_HeartNet2D(BaseModel):
@@ -70,12 +61,12 @@ class Model_HeartNet2D(BaseModel):
         super().__init__(input_shape, nb_classes)
 
     def build_model(self, input_shape, nb_classes):
-        inner_model = HeartNet2D(input_shape, num_classes=nb_classes)
+        inner_model = HeartNet2D(input_shape[::-1], num_classes=nb_classes)
         optimizer = torch.optim.Adam(inner_model.parameters(), lr=1e-3)
         model = LitModule(inner_model, optimizer)
         return model
 
     def prepare(self, x_train, y_train, x_test, y_test):
-        x_train = np.expand_dims(x_train.swapaxes(1, 2), 1)
-        x_test = np.expand_dims(x_test.swapaxes(1, 2), 1)
+        x_train = np.expand_dims(x_train, 1)
+        x_test = np.expand_dims(x_test, 1)
         return x_train, y_train, x_test, y_test

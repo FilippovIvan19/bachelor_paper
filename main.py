@@ -14,7 +14,7 @@ import logging; logging.getLogger('pytorch_lightning').setLevel(logging.WARNING)
 import pandas as pd
 from typing import Type
 
-from src.utils import reformat_data, print_metrics, save_metrics_to_xlsx
+from src.utils import reformat_data, print_metrics, save_metrics_to_xlsx, print_exception
 from src.classifiers import get_classifier_class, BaseClassifier
 from src.constants import ARCHIVES_DIR_SUFFIX, HISTORY_DIR_SUFFIX, RESULTS_DIR_SUFFIX, COLUMN_NAMES
 from src.constants import check_archive_contains_dataset
@@ -26,6 +26,7 @@ check_archive_contains_dataset(DATASETS_TO_RUN)
 
 current_dir = os.path.abspath(os.getcwd())
 xlsx_file_name = current_dir + RESULTS_DIR_SUFFIX + 'results.xlsx'
+logf = open(current_dir + RESULTS_DIR_SUFFIX + 'exceptions.log', 'w')
 
 stored_metrics_dfs = dict()
 if os.path.exists(xlsx_file_name):
@@ -47,20 +48,25 @@ for archives in DATASETS_TO_RUN.items():
         data = reformat_data(train_test_data, SHORT_DATA)
 
         for model in MODELS_TO_RUN:
-            classifier_class: Type[BaseClassifier] = get_classifier_class(model)
-            history_dir = current_dir + HISTORY_DIR_SUFFIX + dataset_name + '/' + model.value + '/'
-            classifier = classifier_class(data, model, history_dir)
+            try:
+                classifier_class: Type[BaseClassifier] = get_classifier_class(model)
+                history_dir = current_dir + HISTORY_DIR_SUFFIX + dataset_name + '/' + model.value + '/'
+                classifier = classifier_class(data, model, history_dir)
 
-            dataset_metrics[model.value] = classifier.run(
-                save_history=SAVE_HISTORY, save_model=SAVE_MODEL, draw_graph=DRAW_GRAPH
-            )
+                dataset_metrics[model.value] = classifier.run(
+                    save_history=SAVE_HISTORY, save_model=SAVE_MODEL, draw_graph=DRAW_GRAPH
+                )
 
-            if PRINT_METRICS:
-                print_metrics(dataset_name, model.value, dataset_metrics[model.value])
+                if PRINT_METRICS:
+                    print_metrics(dataset_name, model.value, dataset_metrics[model.value])
+            except Exception as e:
+                if PRINT_METRICS:
+                    print_exception(dataset_name, model.value, logf)
 
         stored_metrics_dfs[dataset_name] = pd.DataFrame.from_dict(dataset_metrics, orient='index').reset_index()
 
 save_metrics_to_xlsx(xlsx_file_name, stored_metrics_dfs)
+logf.close()
 
 full_duration = time.time() - full_start_time
 print('full duration = {:.2f} minutes'.format(full_duration/60))

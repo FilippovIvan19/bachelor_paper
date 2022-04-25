@@ -16,7 +16,6 @@ class BaseAdapter(abc.ABC):
         return np.array(0), np.array(0), np.array(0), np.array(0)
 
 
-# doesn't work
 class TSCAdapter(BaseAdapter):
     @staticmethod
     def read_x_y_data(file_path: str) -> (np.array, np.array):
@@ -28,11 +27,12 @@ class TSCAdapter(BaseAdapter):
         file_pre_path = archive_dir + '/' + dataset_name + '/' + dataset_name
         x_train, y_train = cls.read_x_y_data(file_pre_path + '_TRAIN.ts')
         x_test, y_test = cls.read_x_y_data(file_pre_path + '_TEST.ts')
-        x_train = from_nested_to_3d_numpy(x_train).swapaxes(1, 2)
-        x_test = from_nested_to_3d_numpy(x_test).swapaxes(1, 2)
+        x_train = from_nested_to_3d_numpy(x_train)
+        x_test = from_nested_to_3d_numpy(x_test)
         return x_train, y_train, x_test, y_test
 
 
+# doesn't work
 class PTBAdapter(BaseAdapter):
     @staticmethod
     def comments_to_dict(comments):

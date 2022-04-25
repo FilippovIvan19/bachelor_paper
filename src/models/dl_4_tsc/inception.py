@@ -9,7 +9,7 @@ class Model_INCEPTION(BaseModel):
         self.callbacks = [reduce_lr]
 
         self.batch_size = 64
-        self.nb_epochs = 7
+        self.nb_epochs = 2
         # self.nb_epochs = 1500
 
         self.nb_filters = 32
@@ -62,7 +62,7 @@ class Model_INCEPTION(BaseModel):
         return x
 
     def build_model(self, input_shape, nb_classes):
-        input_layer = keras.layers.Input(input_shape)
+        input_layer = keras.layers.Input(input_shape[::-1])
 
         x = input_layer
         input_res = input_layer
@@ -87,4 +87,4 @@ class Model_INCEPTION(BaseModel):
 
     def prepare(self, x_train, y_train, x_test, y_test):
         self.batch_size = int(min(x_train.shape[0] / 10, self.batch_size))
-        return x_train, y_train, x_test, y_test
+        return x_train.swapaxes(1, 2), y_train, x_test.swapaxes(1, 2), y_test

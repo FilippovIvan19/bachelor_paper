@@ -164,6 +164,8 @@ class Model_TLENET(BaseModel):
         return y_pred
 
     def prepare(self, x_train, y_train, x_test, y_test):
+        x_train = x_train.swapaxes(1, 2)
+        x_test = x_test.swapaxes(1, 2)
         # limit the number of augmented time series if series too long or too many
         if x_train.shape[1] > 500 or x_train.shape[0] > 2000 or x_test.shape[0] > 2000:
             self.warping_ratios = [1]

@@ -1,3 +1,4 @@
+import traceback
 import numpy as np
 import pandas as pd
 from sklearn.metrics import accuracy_score
@@ -57,6 +58,14 @@ def reformat_data(train_test_data, short=False):
 def print_metrics(dataset_name, model_name, metrics):
     print('    dataset {} was processed by {} model with following metrics:'.format(dataset_name, model_name))
     print(PRINT_METRICS_STRING.format(*metrics))
+
+
+def print_exception(dataset_name, model_name, logf):
+    print('DATASET={} MODEL={}'.format(dataset_name, model_name), file=logf)
+    print(traceback.format_exc(), file=logf)
+    print(file=logf)
+    print('    dataset {} was NOT processed by {} model. Exception was caught\n'
+          .format(dataset_name, model_name))
 
 
 def save_metrics_to_xlsx(xlsx_file_name, stored_metrics_dfs):

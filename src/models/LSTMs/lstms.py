@@ -15,14 +15,14 @@ class Model_LSTMS(BaseModel):
         # self.batch_size = 512
         self.batch_size = 2
         # self.nb_epochs = 50
-        self.nb_epochs = 3
+        self.nb_epochs = 2
 
         super().__init__(input_shape, nb_classes)
 
     def build_model(self, input_shape, nb_classes):
         dropout = 0.2
         model = Sequential()
-        model.add(LSTM(256, return_sequences=True, input_shape=(None, input_shape[1])))
+        model.add(LSTM(256, return_sequences=True, input_shape=input_shape))
         model.add(Dropout(dropout))
         model.add(LSTM(128, return_sequences=True))
         model.add(Dropout(dropout))

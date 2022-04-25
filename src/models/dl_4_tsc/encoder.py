@@ -10,12 +10,12 @@ class Model_ENCODER(BaseModel):
         self.callbacks = []
         self.batch_size = 12
         # self.nb_epochs = 100
-        self.nb_epochs = 10
+        self.nb_epochs = 2
 
         super().__init__(input_shape, nb_classes)
 
     def build_model(self, input_shape, nb_classes):
-        input_layer = keras.layers.Input(input_shape)
+        input_layer = keras.layers.Input(input_shape[::-1])
 
         # conv block -1
         conv1 = keras.layers.Conv1D(filters=128, kernel_size=5, strides=1, padding='same')(input_layer)
@@ -53,3 +53,6 @@ class Model_ENCODER(BaseModel):
                       metrics=[keras.metrics.Recall()])
 
         return model
+
+    def prepare(self, x_train, y_train, x_test, y_test):
+        return x_train.swapaxes(1, 2), y_train, x_test.swapaxes(1, 2), y_test

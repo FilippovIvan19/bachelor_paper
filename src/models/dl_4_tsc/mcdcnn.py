@@ -8,13 +8,13 @@ class Model_MCDCNN(BaseModel):
         self.callbacks = []
         self.batch_size = 16
         # self.nb_epochs = 120
-        self.nb_epochs = 7
+        self.nb_epochs = 2
 
         super().__init__(input_shape, nb_classes)
 
     def build_model(self, input_shape, nb_classes):
-        n_t = input_shape[0]
-        n_vars = input_shape[1]
+        n_t = input_shape[1]
+        n_vars = input_shape[0]
 
         padding = 'valid'
 
@@ -67,4 +67,4 @@ class Model_MCDCNN(BaseModel):
         return new_x
 
     def prepare(self, x_train, y_train, x_test, y_test):
-        return self.prepare_input(x_train), y_train, self.prepare_input(x_test), y_test
+        return self.prepare_input(x_train.swapaxes(1, 2)), y_train, self.prepare_input(x_test.swapaxes(1, 2)), y_test
