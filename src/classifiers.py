@@ -96,7 +96,6 @@ class ClassifierTorch(BaseClassifier):
     def __init__(self, train_test_data, model: Models, history_dir):
         self.best_model_file_name = 'best_model'
         super().__init__(train_test_data, model, history_dir, self.best_model_file_name + '.ckpt')
-        self.y_test_labeled = self.y_test_labeled
 
     def fit(self):
         train_dataset = TensorDataset(torch.from_numpy(self.x_train).float(), torch.from_numpy(self.y_train).float())
@@ -122,7 +121,7 @@ class ClassifierTorch(BaseClassifier):
 
 classifier_to_model_names = {
     ClassifierKeras: [
-        Models.FCN, Models.MLP, Models.RESNET, Models.TLENET, Models.MCNN,
+        Models.FCN_dl4tsc, Models.MLP_dl4tsc, Models.RESNET, Models.TLENET, Models.MCNN,
         Models.TWIESN, Models.ENCODER, Models.MCDCNN, Models.CNN, Models.INCEPTION,
         Models.LSTMS
     ],

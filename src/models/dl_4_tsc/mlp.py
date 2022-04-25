@@ -3,7 +3,7 @@ from tensorflow import keras
 from src.models.base_model import BaseModel
 
 
-class Model_MLP(BaseModel):
+class Model_MLP_dl4tsc(BaseModel):
     def __init__(self, input_shape, nb_classes):
         self.callbacks = []
         self.batch_size = 16

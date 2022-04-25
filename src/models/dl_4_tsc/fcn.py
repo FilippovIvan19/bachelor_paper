@@ -6,7 +6,7 @@ from tensorflow import keras
 from src.models.base_model import BaseModel
 
 
-class Model_FCN(BaseModel):
+class Model_FCN_dl4tsc(BaseModel):
     def __init__(self, input_shape, nb_classes):
         reduce_lr = keras.callbacks.ReduceLROnPlateau(monitor='loss', factor=0.5, patience=50, min_lr=0.0001)
         self.callbacks = [reduce_lr]

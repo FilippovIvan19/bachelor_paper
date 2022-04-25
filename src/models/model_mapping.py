@@ -5,8 +5,8 @@ from src.models.base_model import BaseModel
 
 
 class Models(Enum):
-    FCN = 'fcn'
-    MLP = 'mlp'
+    FCN_dl4tsc = 'fcn_dl4tsc'
+    MLP_dl4tsc = 'mlp_dl4tsc'
     RESNET = 'resnet'
     TLENET = 'tlenet'
     MCNN = 'mcnn'
@@ -23,8 +23,8 @@ class Models(Enum):
 
 
 model_names_to_models = {
-    Models.FCN: dl_4_tsc.Model_FCN,
-    Models.MLP: dl_4_tsc.Model_MLP,
+    Models.FCN_dl4tsc: dl_4_tsc.Model_FCN_dl4tsc,
+    Models.MLP_dl4tsc: dl_4_tsc.Model_MLP_dl4tsc,
     Models.RESNET: dl_4_tsc.Model_RESNET,
     Models.TLENET: dl_4_tsc.Model_TLENET,
     # Models.MCNN: Model_MCNN,

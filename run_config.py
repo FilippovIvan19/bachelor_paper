@@ -19,10 +19,10 @@ DATASETS_TO_RUN[Archives.UEA_2018] = [
 ]
 
 MODELS_TO_RUN = [
-    # Models.MLP,
+    # Models.MLP_dl4tsc,
     # Models.CNN,
     # Models.ENCODER,
-    # Models.FCN,
+    # Models.FCN_dl4tsc,
     # Models.RESNET,
     # Models.INCEPTION,
     # Models.TLENET,
