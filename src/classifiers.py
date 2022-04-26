@@ -121,12 +121,41 @@ class ClassifierTorch(BaseClassifier):
 
 classifier_to_model_names = {
     ClassifierKeras: [
-        Models.FCN_dl4tsc, Models.MLP_dl4tsc, Models.RESNET, Models.TLENET, Models.MCNN,
-        Models.TWIESN, Models.ENCODER, Models.MCDCNN, Models.CNN, Models.INCEPTION,
+        Models.FCN_dl4tsc, Models.MLP_dl4tsc, Models.RESNET, Models.TLENET,
+        Models.ENCODER, Models.MCDCNN, Models.CNN, Models.INCEPTION,
         Models.LSTMS
     ],
     ClassifierTorch: [
         Models.EcgResNet34, Models.ZolotyhNet, Models.HeartNet1D, Models.HeartNet2D,
+
+        Models.FCN,
+        Models.FCNPlus,
+        Models.TCN,
+        Models.InceptionTime,
+        Models.InceptionTimePlus,
+        Models.MLP,
+        Models.gMLP,
+        Models.mWDN,
+        Models.OmniScaleCNN,
+        Models.ResCNN,
+        Models.ResNet,
+        Models.ResNetPlus,
+        Models.RNN,
+        Models.RNNPlus,
+        Models.RNN_FCN,
+        Models.RNN_FCNPlus,
+
+        Models.TransformerModel,
+        Models.TST,
+        Models.TSTPlus,
+        Models.XceptionTime,
+        Models.XceptionTimePlus,
+        Models.XCM,
+        Models.XCMPlus,
+        Models.XResNet1d,
+        Models.XResNet1dPlus,
+        Models.TSPerceiver,
+        Models.TSiTPlus,
     ]
 }
 
