@@ -7,8 +7,8 @@ class Model_MCDCNN(BaseModel):
     def __init__(self, input_shape, nb_classes):
         self.callbacks = []
         self.batch_size = 16
-        # self.nb_epochs = 120
-        self.nb_epochs = 2
+        self.nb_epochs = 120
+        # self.nb_epochs = 500
 
         super().__init__(input_shape, nb_classes)
 

@@ -12,8 +12,8 @@ class Model_FCN_dl4tsc(BaseModel):
         self.callbacks = [reduce_lr]
 
         self.batch_size = 16
-        # self.nb_epochs = 2000
-        self.nb_epochs = 2
+        self.nb_epochs = 1200
+        # self.nb_epochs = 2
 
         super().__init__(input_shape, nb_classes)
 

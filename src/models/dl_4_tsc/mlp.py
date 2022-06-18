@@ -6,9 +6,9 @@ from src.models.base_model import BaseModel
 class Model_MLP_dl4tsc(BaseModel):
     def __init__(self, input_shape, nb_classes):
         self.callbacks = []
-        self.batch_size = 16
-        # self.nb_epochs = 5000
-        self.nb_epochs = 2
+        self.batch_size = 128
+        self.nb_epochs = 5000
+        # self.nb_epochs = 2
 
         super().__init__(input_shape, nb_classes)
 

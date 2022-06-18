@@ -1,0 +1,8 @@
+from .original import Model_ENCODER_ORIG, Model_INCEPTION_ORIG, Model_ZolotyhNet_ORIG, Model_HeartNet2D_ORIG
+
+from .changed import Model_ENCODER_NO_POOLING, Model_ENCODER_CONV_INSTEAD_POOLING, Model_ENCODER_EXTRA_LAYER, \
+    Model_ENCODER_BATCH_NORM, \
+    Model_INCEPTION_CONV_INSTEAD_POOLING, Model_INCEPTION_CONV_INSTEAD_GAP, Model_INCEPTION_BIG_STEP, \
+    Model_INCEPTION_EXTRA_LAYER, \
+    Model_ZolotyhNet_CONV_INSTEAD_POOLING, Model_ZolotyhNet_EXTRA_LAYER, Model_ZolotyhNet_EXTRA_SUBNET, \
+    Model_HeartNet2D_EXTRA_LAYER

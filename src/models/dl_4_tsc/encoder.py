@@ -10,7 +10,7 @@ class Model_ENCODER(BaseModel):
         self.callbacks = []
         self.batch_size = 12
         # self.nb_epochs = 100
-        self.nb_epochs = 2
+        self.nb_epochs = 250
 
         super().__init__(input_shape, nb_classes)
 

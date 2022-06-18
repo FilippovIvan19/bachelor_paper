@@ -12,10 +12,10 @@ from src.models.base_model import BaseModel
 class Model_LSTMS(BaseModel):
     def __init__(self, input_shape, nb_classes):
         self.callbacks = []
-        # self.batch_size = 512
-        self.batch_size = 2
+        self.batch_size = 512
+        # self.batch_size = 2
         # self.nb_epochs = 50
-        self.nb_epochs = 2
+        self.nb_epochs = 80
 
         super().__init__(input_shape, nb_classes)
 

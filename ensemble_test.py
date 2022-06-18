@@ -14,7 +14,8 @@ import logging; logging.getLogger('pytorch_lightning').setLevel(logging.WARNING)
 import pandas as pd
 from typing import Type
 
-from src.utils import reformat_data, print_metrics, save_metrics_to_xlsx, print_exception
+from src.utils import reformat_data, print_metrics, save_metrics_to_xlsx, print_exception, calculate_metrics
+from src.utils import draw_confusion_matrix
 from src.classifiers import get_classifier_class, BaseClassifier
 from src.constants import ARCHIVES_DIR_SUFFIX, HISTORY_DIR_SUFFIX, RESULTS_DIR_SUFFIX, COLUMN_NAMES
 from src.constants import check_archive_contains_dataset
@@ -50,23 +51,38 @@ for archives in DATASETS_TO_RUN.items():
             print('dataset {} from archive {} was read'.format(dataset_name, cur_archive.value))
         data = reformat_data(train_test_data, SHORT_DATA)
 
-        for model in MODELS_TO_RUN:
+        sum_probs = None
+        classifier = None
+        for model in MODELS_FOR_ENSEMBLE:
             try:
                 classifier_class: Type[BaseClassifier] = get_classifier_class(model)
                 history_dir = current_dir + HISTORY_DIR_SUFFIX + dataset_name + '/' + model.value + '/'
                 classifier = classifier_class(data, model, history_dir, print_epoch_num=PRINT_EPOCH_NUM)
 
-                dataset_metrics[model.value] = classifier.run(
-                    save_history=SAVE_HISTORY, save_model=SAVE_MODEL, draw_graph=DRAW_GRAPH
-                )
-                stored_metrics_dfs[dataset_name] = pd.DataFrame.from_dict(dataset_metrics, orient='index').reset_index()
-                save_metrics_to_xlsx(xlsx_file_name, stored_metrics_dfs)
-
-                if PRINT_METRICS:
-                    print_metrics(dataset_name, model.value, dataset_metrics[model.value])
+                probs = classifier.predict_probabilities()
+                if sum_probs is None:
+                    sum_probs = probs
+                else:
+                    sum_probs += probs
             except Exception as e:
                 if PRINT_METRICS:
                     print_exception(dataset_name, model.value, logf)
+
+        y_predicted_labeled = classifier.encoder.inverse_transform(sum_probs)
+
+        precision, accuracy, recall = calculate_metrics(classifier.y_test_labeled, y_predicted_labeled)
+
+        history_dir = current_dir + HISTORY_DIR_SUFFIX + dataset_name + '/' + ENS_NAME + '/'
+        if ~os.path.exists(history_dir):
+            os.makedirs(history_dir)
+        draw_confusion_matrix(classifier.y_test_labeled, y_predicted_labeled, history_dir, ENS_NAME)
+
+        dataset_metrics[ENS_NAME] = [precision, accuracy, recall, 0]
+
+        stored_metrics_dfs[dataset_name] = pd.DataFrame.from_dict(dataset_metrics, orient='index').reset_index()
+        save_metrics_to_xlsx(xlsx_file_name, stored_metrics_dfs)
+        if PRINT_METRICS:
+            print_metrics(dataset_name, ENS_NAME, dataset_metrics[ENS_NAME])
 
         stored_metrics_dfs[dataset_name] = pd.DataFrame.from_dict(dataset_metrics, orient='index').reset_index()
 

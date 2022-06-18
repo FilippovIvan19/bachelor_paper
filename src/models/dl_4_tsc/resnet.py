@@ -12,8 +12,8 @@ class Model_RESNET(BaseModel):
         self.callbacks = [reduce_lr]
 
         self.batch_size = 64
-        # self.nb_epochs = 1500
-        self.nb_epochs = 2
+        self.nb_epochs = 800
+        # self.nb_epochs = 2
 
         super().__init__(input_shape, nb_classes)
 

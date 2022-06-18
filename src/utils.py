@@ -1,9 +1,11 @@
 import traceback
 import numpy as np
 import pandas as pd
-from sklearn.metrics import accuracy_score
+from sklearn.metrics import accuracy_score, confusion_matrix
 from sklearn.metrics import precision_score
 from sklearn.metrics import recall_score
+import seaborn as sn
+# sn.set(font_scale=3.0)
 
 import matplotlib.pyplot as plt
 import matplotlib
@@ -19,6 +21,30 @@ def calculate_metrics(y_true, y_pred):
     accuracy = accuracy_score(y_true, y_pred)
     recall = recall_score(y_true, y_pred, average='macro', zero_division=0)
     return precision, accuracy, recall
+
+
+def draw_confusion_matrix(y_true, y_pred, history_dir, model_name):
+    matrix = confusion_matrix(y_true, y_pred)
+    matrix_norm = confusion_matrix(y_true, y_pred, normalize='true')
+
+    file_name = history_dir + 'matrix'
+    file_name_norm = history_dir + 'matrix_norm'
+
+    plt.figure()
+    ax = sn.heatmap(matrix, annot=True, cmap='Blues')
+    ax.set_title(model_name)
+    ax.set_xlabel('Predicted Values')
+    ax.set_ylabel('Actual Values')
+    plt.savefig(file_name, bbox_inches='tight')
+    plt.close()
+
+    plt.figure()
+    ax = sn.heatmap(matrix_norm, annot=True, cmap='Blues')
+    ax.set_title(model_name)
+    ax.set_xlabel('Predicted Values')
+    ax.set_ylabel('Actual Values')
+    plt.savefig(file_name_norm, bbox_inches='tight')
+    plt.close()
 
 
 def draw_history_graph(hist, history_dir):
@@ -69,7 +95,7 @@ def print_exception(dataset_name, model_name, logf):
 
 
 def save_metrics_to_xlsx(xlsx_file_name, stored_metrics_dfs):
-    writer = pd.ExcelWriter(xlsx_file_name)
+    writer = pd.ExcelWriter(xlsx_file_name, engine='xlsxwriter')
     for ds_name, df in stored_metrics_dfs.items():
         df.to_excel(writer, sheet_name=ds_name, index=False, header=COLUMN_NAMES)
     writer.save()

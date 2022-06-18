@@ -9,8 +9,8 @@ class Model_INCEPTION(BaseModel):
         self.callbacks = [reduce_lr]
 
         self.batch_size = 64
-        self.nb_epochs = 2
-        # self.nb_epochs = 1500
+        # self.nb_epochs = 2
+        self.nb_epochs = 800
 
         self.nb_filters = 32
         self.use_residual = True

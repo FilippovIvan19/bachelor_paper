@@ -9,10 +9,10 @@ from src.models.lxdv.author_models2d import HeartNet2D
 
 class Model_EcgResNet34(BaseModel):
     def __init__(self, input_shape, nb_classes):
-        # self.batch_size = 128
-        self.batch_size = 16
-        # self.nb_epochs = 1000
-        self.nb_epochs = 2
+        self.batch_size = 128
+        # self.batch_size = 16
+        self.nb_epochs = 1000
+        # self.nb_epochs = 2
         super().__init__(input_shape, nb_classes)
 
     def build_model(self, input_shape, nb_classes):
@@ -24,10 +24,10 @@ class Model_EcgResNet34(BaseModel):
 
 class Model_ZolotyhNet(BaseModel):
     def __init__(self, input_shape, nb_classes):
-        # self.batch_size = 128
-        self.batch_size = 16
-        # self.nb_epochs = 1000
-        self.nb_epochs = 2
+        self.batch_size = 128
+        # self.batch_size = 16
+        self.nb_epochs = 1000
+        # self.nb_epochs = 2
         super().__init__(input_shape, nb_classes)
 
     def build_model(self, input_shape, nb_classes):
@@ -39,10 +39,10 @@ class Model_ZolotyhNet(BaseModel):
 
 class Model_HeartNet1D(BaseModel):
     def __init__(self, input_shape, nb_classes):
-        # self.batch_size = 128
-        self.batch_size = 16
-        # self.nb_epochs = 1000
-        self.nb_epochs = 2
+        self.batch_size = 128
+        # self.batch_size = 16
+        self.nb_epochs = 200
+        # self.nb_epochs = 2
         super().__init__(input_shape, nb_classes)
 
     def build_model(self, input_shape, nb_classes):
@@ -54,10 +54,10 @@ class Model_HeartNet1D(BaseModel):
 
 class Model_HeartNet2D(BaseModel):
     def __init__(self, input_shape, nb_classes):
-        # self.batch_size = 128
-        self.batch_size = 16
-        # self.nb_epochs = 1000
-        self.nb_epochs = 2
+        self.batch_size = 128
+        # self.batch_size = 16
+        self.nb_epochs = 300
+        # self.nb_epochs = 2
         super().__init__(input_shape, nb_classes)
 
     def build_model(self, input_shape, nb_classes):

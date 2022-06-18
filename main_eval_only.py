@@ -28,7 +28,7 @@ current_dir = os.path.abspath(os.getcwd())
 result_dir = current_dir + RESULTS_DIR_SUFFIX
 if not os.path.exists(result_dir):
     os.makedirs(result_dir)
-xlsx_file_name = result_dir + 'results.xlsx'
+xlsx_file_name = result_dir + 'results_eval.xlsx'
 logf = open(result_dir + 'exceptions.log', 'w')
 
 stored_metrics_dfs = dict()
@@ -56,9 +56,7 @@ for archives in DATASETS_TO_RUN.items():
                 history_dir = current_dir + HISTORY_DIR_SUFFIX + dataset_name + '/' + model.value + '/'
                 classifier = classifier_class(data, model, history_dir, print_epoch_num=PRINT_EPOCH_NUM)
 
-                dataset_metrics[model.value] = classifier.run(
-                    save_history=SAVE_HISTORY, save_model=SAVE_MODEL, draw_graph=DRAW_GRAPH
-                )
+                dataset_metrics[model.value] = classifier.run_eval_only(model.value)
                 stored_metrics_dfs[dataset_name] = pd.DataFrame.from_dict(dataset_metrics, orient='index').reset_index()
                 save_metrics_to_xlsx(xlsx_file_name, stored_metrics_dfs)
 

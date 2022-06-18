@@ -11,7 +11,7 @@ class Model_TLENET(BaseModel):
         self.callbacks = []
         self.batch_size = 256
         # self.nb_epochs = 1000
-        self.nb_epochs = 2
+        self.nb_epochs = 100
 
         self.warping_ratios = [0.5, 1, 2]
         self.slice_ratio = 0.1

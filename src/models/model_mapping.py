@@ -1,13 +1,13 @@
 from enum import Enum
 
-from src.models import dl_4_tsc, LSTMs, lxdv, tsai
+from src.models import dl_4_tsc, LSTMs, lxdv, tsai, experiments
 from src.models.base_model import BaseModel
 
 
 class Models(Enum):
     FCN_dl4tsc = 'fcn_dl4tsc'
     MLP_dl4tsc = 'mlp_dl4tsc'
-    RESNET = 'resnet'
+    RESNET = 'resnet_dl4tsc'
     TLENET = 'tlenet'
     ENCODER = 'encoder'
     MCDCNN = 'mcdcnn'
@@ -46,6 +46,26 @@ class Models(Enum):
     XResNet1dPlus = 'XResNet1dPlus'
     TSPerceiver = 'TSPerceiver'
     TSiTPlus = 'TSiTPlus'
+
+    ENCODER_ORIG = 'ENCODER_ORIG'
+    ENCODER_NO_POOLING = 'ENCODER_NO_POOLING'
+    ENCODER_CONV_INSTEAD_POOLING = 'ENCODER_CONV_INSTEAD_POOLING'
+    ENCODER_BATCH_NORM = 'ENCODER_BATCH_NORM'
+    ENCODER_EXTRA_LAYER = 'ENCODER_EXTRA_LAYER'
+
+    INCEPTION_ORIG = 'INCEPTION_ORIG'
+    INCEPTION_EXTRA_LAYER = 'INCEPTION_EXTRA_LAYER'
+    INCEPTION_BIG_STEP = 'INCEPTION_BIG_STEP'
+    INCEPTION_CONV_INSTEAD_POOLING = 'INCEPTION_CONV_INSTEAD_POOLING'
+    INCEPTION_CONV_INSTEAD_GAP = 'INCEPTION_CONV_INSTEAD_GAP'
+
+    ZolotyhNet_ORIG = 'ZolotyhNet_ORIG'
+    ZolotyhNet_CONV_INSTEAD_POOLING = 'ZolotyhNet_CONV_INSTEAD_POOLING'
+    ZolotyhNet_EXTRA_LAYER = 'ZolotyhNet_EXTRA_LAYER'
+    ZolotyhNet_EXTRA_SUBNET = 'ZolotyhNet_EXTRA_SUBNET'
+
+    HeartNet2D_ORIG = 'HeartNet2D_ORIG'
+    HeartNet2D_EXTRA_LAYER = 'HeartNet2D_EXTRA_LAYER'
 
 
 model_names_to_models = {
@@ -90,6 +110,27 @@ model_names_to_models = {
     Models.XResNet1dPlus: tsai.Model_XResNet1dPlus,
     Models.TSPerceiver: tsai.Model_TSPerceiver,
     Models.TSiTPlus: tsai.Model_TSiTPlus,
+
+    Models.ENCODER_ORIG: experiments.Model_ENCODER_ORIG,
+    Models.ENCODER_NO_POOLING: experiments.Model_ENCODER_NO_POOLING,
+    Models.ENCODER_CONV_INSTEAD_POOLING: experiments.Model_ENCODER_CONV_INSTEAD_POOLING,
+    Models.ENCODER_BATCH_NORM: experiments.Model_ENCODER_BATCH_NORM,
+    Models.ENCODER_EXTRA_LAYER: experiments.Model_ENCODER_EXTRA_LAYER,
+
+    Models.INCEPTION_ORIG: experiments.Model_INCEPTION_ORIG,
+    Models.INCEPTION_EXTRA_LAYER: experiments.Model_INCEPTION_EXTRA_LAYER,
+    Models.INCEPTION_BIG_STEP: experiments.Model_INCEPTION_BIG_STEP,
+    Models.INCEPTION_CONV_INSTEAD_POOLING: experiments.Model_INCEPTION_CONV_INSTEAD_POOLING,
+    Models.INCEPTION_CONV_INSTEAD_GAP: experiments.Model_INCEPTION_CONV_INSTEAD_GAP,
+
+    Models.ZolotyhNet_ORIG: experiments.Model_ZolotyhNet_ORIG,
+    Models.ZolotyhNet_CONV_INSTEAD_POOLING: experiments.Model_ZolotyhNet_CONV_INSTEAD_POOLING,
+    Models.ZolotyhNet_EXTRA_LAYER: experiments.Model_ZolotyhNet_EXTRA_LAYER,
+    Models.ZolotyhNet_EXTRA_SUBNET: experiments.Model_ZolotyhNet_EXTRA_SUBNET,
+
+    Models.HeartNet2D_ORIG: experiments.Model_HeartNet2D_ORIG,
+    Models.HeartNet2D_EXTRA_LAYER: experiments.Model_HeartNet2D_EXTRA_LAYER,
+
 }
 
 

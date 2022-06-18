@@ -8,7 +8,7 @@ class Model_CNN(BaseModel):
         self.callbacks = []
         self.batch_size = 16
         # self.nb_epochs = 2000
-        self.nb_epochs = 2
+        self.nb_epochs = 5000
 
         super().__init__(input_shape, nb_classes)
 

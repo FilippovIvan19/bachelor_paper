@@ -36,7 +36,7 @@ class LitModule(pl.LightningModule):
         x, y = batch
         y_hat = self.model(x)
         loss = F.cross_entropy(y_hat, y)
-        precision, accuracy, recall = calculate_metrics(torch.argmax(y_hat, dim=1), torch.argmax(y, dim=1))
+        precision, accuracy, recall = calculate_metrics(torch.argmax(y_hat, dim=1).cpu(), torch.argmax(y, dim=1).cpu())
         # metrics = {"loss": loss, "precision": precision, "accuracy": accuracy, "recall": recall}
         metrics = {"loss": loss, "recall": recall}
         return metrics

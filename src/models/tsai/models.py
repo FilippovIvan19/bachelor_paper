@@ -36,8 +36,8 @@ class Model_FCN(BaseModel):
     def __init__(self, input_shape, nb_classes):
         # self.batch_size = 128
         self.batch_size = 16
-        # self.nb_epochs = 1000
-        self.nb_epochs = 2
+        self.nb_epochs = 400
+        # self.nb_epochs = 2
         super().__init__(input_shape, nb_classes)
 
     def build_model(self, input_shape, nb_classes):
@@ -51,8 +51,8 @@ class Model_FCNPlus(BaseModel):
     def __init__(self, input_shape, nb_classes):
         # self.batch_size = 128
         self.batch_size = 16
-        # self.nb_epochs = 1000
-        self.nb_epochs = 2
+        self.nb_epochs = 400
+        # self.nb_epochs = 2
         super().__init__(input_shape, nb_classes)
 
     def build_model(self, input_shape, nb_classes):
@@ -66,8 +66,8 @@ class Model_TCN(BaseModel):
     def __init__(self, input_shape, nb_classes):
         # self.batch_size = 128
         self.batch_size = 16
-        # self.nb_epochs = 1000
-        self.nb_epochs = 2
+        self.nb_epochs = 400
+        # self.nb_epochs = 2
         super().__init__(input_shape, nb_classes)
 
     def build_model(self, input_shape, nb_classes):
@@ -81,8 +81,8 @@ class Model_InceptionTime(BaseModel):
     def __init__(self, input_shape, nb_classes):
         # self.batch_size = 128
         self.batch_size = 16
-        # self.nb_epochs = 1000
-        self.nb_epochs = 2
+        self.nb_epochs = 200
+        # self.nb_epochs = 2
         super().__init__(input_shape, nb_classes)
 
     def build_model(self, input_shape, nb_classes):
@@ -96,8 +96,8 @@ class Model_InceptionTimePlus(BaseModel):
     def __init__(self, input_shape, nb_classes):
         # self.batch_size = 128
         self.batch_size = 16
-        # self.nb_epochs = 1000
-        self.nb_epochs = 2
+        self.nb_epochs = 200
+        # self.nb_epochs = 2
         super().__init__(input_shape, nb_classes)
 
     def build_model(self, input_shape, nb_classes):
@@ -111,8 +111,8 @@ class Model_MLP(BaseModel):
     def __init__(self, input_shape, nb_classes):
         # self.batch_size = 128
         self.batch_size = 16
-        # self.nb_epochs = 1000
-        self.nb_epochs = 2
+        self.nb_epochs = 200
+        # self.nb_epochs = 2
         super().__init__(input_shape, nb_classes)
 
     def build_model(self, input_shape, nb_classes):
@@ -126,8 +126,8 @@ class Model_gMLP(BaseModel):
     def __init__(self, input_shape, nb_classes):
         # self.batch_size = 128
         self.batch_size = 16
-        # self.nb_epochs = 1000
-        self.nb_epochs = 2
+        self.nb_epochs = 200
+        # self.nb_epochs = 2
         super().__init__(input_shape, nb_classes)
 
     def build_model(self, input_shape, nb_classes):
@@ -141,8 +141,8 @@ class Model_mWDN(BaseModel):
     def __init__(self, input_shape, nb_classes):
         # self.batch_size = 128
         self.batch_size = 16
-        # self.nb_epochs = 1000
-        self.nb_epochs = 2
+        self.nb_epochs = 100
+        # self.nb_epochs = 2
         super().__init__(input_shape, nb_classes)
 
     def build_model(self, input_shape, nb_classes):
@@ -156,8 +156,8 @@ class Model_OmniScaleCNN(BaseModel):
     def __init__(self, input_shape, nb_classes):
         # self.batch_size = 128
         self.batch_size = 16
-        # self.nb_epochs = 1000
-        self.nb_epochs = 2
+        self.nb_epochs = 200
+        # self.nb_epochs = 2
         super().__init__(input_shape, nb_classes)
 
     def build_model(self, input_shape, nb_classes):
@@ -171,8 +171,8 @@ class Model_ResCNN(BaseModel):
     def __init__(self, input_shape, nb_classes):
         # self.batch_size = 128
         self.batch_size = 16
-        # self.nb_epochs = 1000
-        self.nb_epochs = 2
+        self.nb_epochs = 200
+        # self.nb_epochs = 2
         super().__init__(input_shape, nb_classes)
 
     def build_model(self, input_shape, nb_classes):
@@ -186,8 +186,8 @@ class Model_ResNet(BaseModel):
     def __init__(self, input_shape, nb_classes):
         # self.batch_size = 128
         self.batch_size = 16
-        # self.nb_epochs = 1000
-        self.nb_epochs = 2
+        self.nb_epochs = 400
+        # self.nb_epochs = 2
         super().__init__(input_shape, nb_classes)
 
     def build_model(self, input_shape, nb_classes):
@@ -201,8 +201,8 @@ class Model_ResNetPlus(BaseModel):
     def __init__(self, input_shape, nb_classes):
         # self.batch_size = 128
         self.batch_size = 16
-        # self.nb_epochs = 1000
-        self.nb_epochs = 2
+        self.nb_epochs = 500
+        # self.nb_epochs = 2
         super().__init__(input_shape, nb_classes)
 
     def build_model(self, input_shape, nb_classes):
@@ -216,8 +216,8 @@ class Model_RNN(BaseModel):
     def __init__(self, input_shape, nb_classes):
         # self.batch_size = 128
         self.batch_size = 16
-        # self.nb_epochs = 1000
-        self.nb_epochs = 2
+        self.nb_epochs = 1000
+        # self.nb_epochs = 2
         super().__init__(input_shape, nb_classes)
 
     def build_model(self, input_shape, nb_classes):
@@ -231,8 +231,8 @@ class Model_RNNPlus(BaseModel):
     def __init__(self, input_shape, nb_classes):
         # self.batch_size = 128
         self.batch_size = 16
-        # self.nb_epochs = 1000
-        self.nb_epochs = 2
+        self.nb_epochs = 1000
+        # self.nb_epochs = 2
         super().__init__(input_shape, nb_classes)
 
     def build_model(self, input_shape, nb_classes):
@@ -246,8 +246,8 @@ class Model_RNN_FCN(BaseModel):
     def __init__(self, input_shape, nb_classes):
         # self.batch_size = 128
         self.batch_size = 16
-        # self.nb_epochs = 1000
-        self.nb_epochs = 2
+        self.nb_epochs = 400
+        # self.nb_epochs = 2
         super().__init__(input_shape, nb_classes)
 
     def build_model(self, input_shape, nb_classes):
@@ -261,8 +261,8 @@ class Model_RNN_FCNPlus(BaseModel):
     def __init__(self, input_shape, nb_classes):
         # self.batch_size = 128
         self.batch_size = 16
-        # self.nb_epochs = 1000
-        self.nb_epochs = 2
+        self.nb_epochs = 200
+        # self.nb_epochs = 2
         super().__init__(input_shape, nb_classes)
 
     def build_model(self, input_shape, nb_classes):
@@ -276,8 +276,8 @@ class Model_TransformerModel(BaseModel):
     def __init__(self, input_shape, nb_classes):
         # self.batch_size = 128
         self.batch_size = 16
-        # self.nb_epochs = 1000
-        self.nb_epochs = 2
+        self.nb_epochs = 1000
+        # self.nb_epochs = 2
         super().__init__(input_shape, nb_classes)
 
     def build_model(self, input_shape, nb_classes):
@@ -290,9 +290,9 @@ class Model_TransformerModel(BaseModel):
 class Model_TST(BaseModel):
     def __init__(self, input_shape, nb_classes):
         # self.batch_size = 128
-        self.batch_size = 16
-        # self.nb_epochs = 1000
-        self.nb_epochs = 2
+        self.batch_size = 4
+        self.nb_epochs = 100
+        # self.nb_epochs = 2
         super().__init__(input_shape, nb_classes)
 
     def build_model(self, input_shape, nb_classes):
@@ -306,8 +306,8 @@ class Model_TSTPlus(BaseModel):
     def __init__(self, input_shape, nb_classes):
         # self.batch_size = 128
         self.batch_size = 16
-        # self.nb_epochs = 1000
-        self.nb_epochs = 2
+        self.nb_epochs = 100
+        # self.nb_epochs = 2
         super().__init__(input_shape, nb_classes)
 
     def build_model(self, input_shape, nb_classes):
@@ -321,8 +321,8 @@ class Model_XceptionTime(BaseModel):
     def __init__(self, input_shape, nb_classes):
         # self.batch_size = 128
         self.batch_size = 16
-        # self.nb_epochs = 1000
-        self.nb_epochs = 2
+        self.nb_epochs = 1000
+        # self.nb_epochs = 2
         super().__init__(input_shape, nb_classes)
 
     def build_model(self, input_shape, nb_classes):
@@ -336,8 +336,8 @@ class Model_XceptionTimePlus(BaseModel):
     def __init__(self, input_shape, nb_classes):
         # self.batch_size = 128
         self.batch_size = 16
-        # self.nb_epochs = 1000
-        self.nb_epochs = 2
+        self.nb_epochs = 1000
+        # self.nb_epochs = 2
         super().__init__(input_shape, nb_classes)
 
     def build_model(self, input_shape, nb_classes):
@@ -351,8 +351,8 @@ class Model_XCM(BaseModel):
     def __init__(self, input_shape, nb_classes):
         # self.batch_size = 128
         self.batch_size = 16
-        # self.nb_epochs = 1000
-        self.nb_epochs = 2
+        self.nb_epochs = 200
+        # self.nb_epochs = 2
         super().__init__(input_shape, nb_classes)
 
     def build_model(self, input_shape, nb_classes):
@@ -366,8 +366,8 @@ class Model_XCMPlus(BaseModel):
     def __init__(self, input_shape, nb_classes):
         # self.batch_size = 128
         self.batch_size = 16
-        # self.nb_epochs = 1000
-        self.nb_epochs = 2
+        self.nb_epochs = 100
+        # self.nb_epochs = 2
         super().__init__(input_shape, nb_classes)
 
     def build_model(self, input_shape, nb_classes):
@@ -381,8 +381,8 @@ class Model_XResNet1d(BaseModel):
     def __init__(self, input_shape, nb_classes):
         # self.batch_size = 128
         self.batch_size = 16
-        # self.nb_epochs = 1000
-        self.nb_epochs = 2
+        self.nb_epochs = 200
+        # self.nb_epochs = 2
         super().__init__(input_shape, nb_classes)
 
     def build_model(self, input_shape, nb_classes):
@@ -396,8 +396,8 @@ class Model_XResNet1dPlus(BaseModel):
     def __init__(self, input_shape, nb_classes):
         # self.batch_size = 128
         self.batch_size = 16
-        # self.nb_epochs = 1000
-        self.nb_epochs = 2
+        self.nb_epochs = 200
+        # self.nb_epochs = 2
         super().__init__(input_shape, nb_classes)
 
     def build_model(self, input_shape, nb_classes):
@@ -411,8 +411,8 @@ class Model_TSPerceiver(BaseModel):
     def __init__(self, input_shape, nb_classes):
         # self.batch_size = 128
         self.batch_size = 16
-        # self.nb_epochs = 1000
-        self.nb_epochs = 2
+        self.nb_epochs = 300
+        # self.nb_epochs = 2
         super().__init__(input_shape, nb_classes)
 
     def build_model(self, input_shape, nb_classes):
@@ -425,9 +425,9 @@ class Model_TSPerceiver(BaseModel):
 class Model_TSiTPlus(BaseModel):
     def __init__(self, input_shape, nb_classes):
         # self.batch_size = 128
-        self.batch_size = 16
-        # self.nb_epochs = 1000
-        self.nb_epochs = 2
+        self.batch_size = 4
+        self.nb_epochs = 300
+        # self.nb_epochs = 2
         super().__init__(input_shape, nb_classes)
 
     def build_model(self, input_shape, nb_classes):

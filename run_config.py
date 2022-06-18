@@ -6,10 +6,10 @@ DATASETS_TO_RUN = {}
 DATASETS_TO_RUN[Archives.UCR_2018] = [
     # 'CinCECGTorso',
     'ECG200',
-    # 'ECG5000',
+    'ECG5000',
     # 'ECGFiveDays',
-    # 'NonInvasiveFetalECGThorax1',
-    # 'NonInvasiveFetalECGThorax2',
+    'NonInvasiveFetalECGThorax1',
+    'NonInvasiveFetalECGThorax2',
     # 'TwoLeadECG',
 ]
 # DATASETS_TO_RUN[Archives.PTB] = ['ptb-diagnostic-ecg-database-1.0.0']
@@ -60,6 +60,28 @@ MODELS_TO_RUN = [
     # Models.XResNet1dPlus,
     # Models.TSPerceiver,
     # Models.TSiTPlus,
+
+    Models.ENCODER_ORIG,
+    Models.ENCODER_NO_POOLING,
+    Models.ENCODER_CONV_INSTEAD_POOLING,
+    Models.ENCODER_BATCH_NORM,
+    Models.ENCODER_EXTRA_LAYER,
+
+    Models.INCEPTION_ORIG,
+    Models.INCEPTION_EXTRA_LAYER,
+    Models.INCEPTION_BIG_STEP,
+    Models.INCEPTION_CONV_INSTEAD_POOLING,
+    Models.INCEPTION_CONV_INSTEAD_GAP,
+
+    Models.ZolotyhNet_ORIG,
+    Models.ZolotyhNet_CONV_INSTEAD_POOLING,
+    Models.ZolotyhNet_EXTRA_LAYER,
+    Models.ZolotyhNet_EXTRA_SUBNET,
+]
+
+MODELS_FOR_ENSEMBLE = [
+    Models.ENCODER,
+    Models.INCEPTION,
 ]
 
 PRINT_METRICS = True
@@ -68,3 +90,5 @@ SAVE_HISTORY = True
 SAVE_MODEL = True
 DRAW_GRAPH = True
 SHORT_DATA = False
+PRINT_EPOCH_NUM = True
+ENS_NAME = 'ENSEMBLE_f2_orig'

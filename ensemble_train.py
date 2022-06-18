@@ -28,21 +28,12 @@ current_dir = os.path.abspath(os.getcwd())
 result_dir = current_dir + RESULTS_DIR_SUFFIX
 if not os.path.exists(result_dir):
     os.makedirs(result_dir)
-xlsx_file_name = result_dir + 'results.xlsx'
 logf = open(result_dir + 'exceptions.log', 'w')
-
-stored_metrics_dfs = dict()
-if os.path.exists(xlsx_file_name) and os.path.getsize(xlsx_file_name) != 0:
-    stored_metrics_dfs = pd.read_excel(xlsx_file_name, sheet_name=None)
 
 for archives in DATASETS_TO_RUN.items():
     cur_archive = archives[0]
     cur_datasets = archives[1]
     for dataset_name in cur_datasets:
-        dataset_metrics = dict()
-        if dataset_name in stored_metrics_dfs:
-            dataset_metrics = stored_metrics_dfs[dataset_name].set_index(COLUMN_NAMES[0]).T.to_dict('list')
-
         adapter: Type[BaseAdapter] = get_adapter(cur_archive)
         train_test_data = adapter.read_train_test_data(
             current_dir + ARCHIVES_DIR_SUFFIX + cur_archive.value, dataset_name)
@@ -50,27 +41,22 @@ for archives in DATASETS_TO_RUN.items():
             print('dataset {} from archive {} was read'.format(dataset_name, cur_archive.value))
         data = reformat_data(train_test_data, SHORT_DATA)
 
-        for model in MODELS_TO_RUN:
+        for model in MODELS_FOR_ENSEMBLE:
             try:
                 classifier_class: Type[BaseClassifier] = get_classifier_class(model)
                 history_dir = current_dir + HISTORY_DIR_SUFFIX + dataset_name + '/' + model.value + '/'
                 classifier = classifier_class(data, model, history_dir, print_epoch_num=PRINT_EPOCH_NUM)
 
-                dataset_metrics[model.value] = classifier.run(
-                    save_history=SAVE_HISTORY, save_model=SAVE_MODEL, draw_graph=DRAW_GRAPH
+                duration = classifier.run_train_only(
+                    save_history=SAVE_HISTORY, draw_graph=DRAW_GRAPH
                 )
-                stored_metrics_dfs[dataset_name] = pd.DataFrame.from_dict(dataset_metrics, orient='index').reset_index()
-                save_metrics_to_xlsx(xlsx_file_name, stored_metrics_dfs)
-
                 if PRINT_METRICS:
-                    print_metrics(dataset_name, model.value, dataset_metrics[model.value])
+                    print('    model {} was trained on dataset {} in {:.2f} minutes:'
+                          .format(model.value, dataset_name, duration))
             except Exception as e:
                 if PRINT_METRICS:
                     print_exception(dataset_name, model.value, logf)
 
-        stored_metrics_dfs[dataset_name] = pd.DataFrame.from_dict(dataset_metrics, orient='index').reset_index()
-
-save_metrics_to_xlsx(xlsx_file_name, stored_metrics_dfs)
 logf.close()
 
 full_duration = time.time() - full_start_time
