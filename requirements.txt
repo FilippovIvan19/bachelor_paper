@@ -1,0 +1,13 @@
+keras
+matplotlib
+numpy
+pandas
+pytorch_lightning
+scikit_learn
+scipy
+sktime
+tensorflow==2.8.0
+tensorflow_addons
+tensorflow_gpu
+torc
+wfdb
