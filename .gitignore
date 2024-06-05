@@ -1,2 +1,4 @@
 /.idea/*
 /lightning_logs/*
+**/.ipynb_checkpoints/
+**/__pycache__/
